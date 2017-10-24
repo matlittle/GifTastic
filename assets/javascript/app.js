@@ -44,14 +44,16 @@ function toggleGifState(btn) {
 
 // populate page from gifs in response
 function addGifs(response) {
-	console.log(response);
 	var gifs = response.data;
+	console.log(gifs);
+
+	$("#gif-col").empty();
 
 	gifs.forEach(function(gif) {
-		var stillSrc = gif.images.fixed_width_still.url;
-		var animateSrc = gif.images.fixed_width.url;
+		var stillSrc = gif.images.fixed_height_still.url;
+		var animateSrc = gif.images.fixed_height.url;
 
-		var gifDiv = $("<div>").addClass("col-xs-6 col-md-4");
+		var gifDiv = $("<div>").addClass("col-xs-12 col-md-6 col-lg-4");
 
 		var newGif = $("<img>").addClass("gif");
 		$(newGif).attr("src", stillSrc).attr("data-state", "still");
