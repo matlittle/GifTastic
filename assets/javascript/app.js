@@ -6,21 +6,20 @@ buildButtonList(topics);
 // initialize page by building buttons from array of topics
 function buildButtonList(arr) {
 	var btnDiv = $("#button-row");
+	$(btnDiv).empty();
 
 	for (var i = 0; i < arr.length; i++) {
 		var newBtn = $("<input>").attr("type", "button").attr("value", arr[i]);
-		$(newBtn).addClass("gif-btn");
+		$(newBtn).addClass("gif-btn btn btn-default");
 
 		$(btnDiv).append(newBtn);
 	}
 }
 
 // when user clicks a button, send request to giphy, and get gifs based on button clicked
-function requestGifs() {
-	const url = "https://api.giphy.com/v1/gifs/search";
+function requestGifs(search) {
+	const endUrl = "https://api.giphy.com/v1/gifs/search";
 	const apiKey = "TH0GEBfezZR36QstPFbKKOPXMAeBGylD";
-
-	search = $(this).val();
 
 	var params = {
 		api_key: apiKey,
@@ -29,7 +28,7 @@ function requestGifs() {
 		rating: "g"
 	}
 
-	var xhrUrl = url + "?" + $.param(params)
+	var xhrUrl = endUrl + "?" + $.param(params)
 
 	$.get(xhrUrl, addGifs);
 }
@@ -53,22 +52,38 @@ function addGifs(response) {
 		var stillSrc = gif.images.fixed_height_still.url;
 		var animateSrc = gif.images.fixed_height.url;
 
-		var gifDiv = $("<div>").addClass("col-xs-12 col-md-6 col-lg-4");
+		var gifDiv = $("<div>").addClass("col-md-12 col-lg-6");
 
 		var newGif = $("<img>").addClass("gif");
 		$(newGif).attr("src", stillSrc).attr("data-state", "still");
 		$(newGif).attr("data-still", stillSrc).attr("data-animate", animateSrc);
 
-		$(gifDiv).append(newGif);
+		var rating = $("<p>").addClass("rating").text(`Rating: ${gif.rating.toUpperCase()}`);
+
+		$(gifDiv).append(newGif).append(rating);
 		$("#gif-col").append(gifDiv);
 	})
 }
 
 // when user enters topic and clicks submit, add new button for user input based on value
 function addTopic() {
+	var newTopic = $("#topic-input").val();
 
+	if(newTopic.length > 0){
+		$("#topic-input").val("");
+		topics.push(newTopic);
+		buildButtonList(topics);
+		requestGifs(newTopic);
+	}
 }
+	
 
+$("#topic-btn").click( function(event) {
+	event.preventDefault();
+	addTopic();
+});
 
-$(document).on("click", ".gif-btn", requestGifs);
 $(document).on("click", ".gif", toggleGifState);
+$(document).on("click", ".gif-btn", function() { 
+	requestGifs($(this).val()) 
+});

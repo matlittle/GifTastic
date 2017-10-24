@@ -1,0 +1,22 @@
+#gif-col {
+	text-align: center
+}
+
+.gif {
+	padding: 10px;
+}
+
+.gif-btn {
+	margin: 10px;
+}
+
+.gif-btn:hover {
+	margin-top: 10px;
+	margin-bottom: 8px;
+}
+
+#button-row {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 10px;
+}
