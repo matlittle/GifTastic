@@ -2,8 +2,13 @@
 	text-align: center
 }
 
+#gif-col > div {
+	height: 270px;
+}
+
 .gif {
 	padding: 10px;
+	max-width: 400px;
 }
 
 .gif-btn {
@@ -17,8 +22,4 @@
 
 #button-row {
 	padding: 10px;
-}
-
-.rating {
-	margin-bottom: 20px;
 }
