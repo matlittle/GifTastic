@@ -1,5 +1,5 @@
 // create a starting array of topics
-var topics = ["Aaron Donald", "Todd Gurley", "Jared Goff"];
+var topics = ["Aaron Donald", "Todd Gurley", "Jared Goff", "Alec Ogletree", "Trumaine Johnson", "Robert Quinn", "Tavon Austin", "Johnny Hekker", "Cooper Kupp", "Kurt Warner", "Marshall Faulk", "Isaac Bruce", "Torry Holt", "Eric Dickerson", "Jack Youngblood"];
 
 buildButtonList(topics);
 
@@ -10,7 +10,7 @@ function buildButtonList(arr) {
 
 	for (var i = 0; i < arr.length; i++) {
 		var newBtn = $("<input>").attr("type", "button").attr("value", arr[i]);
-		$(newBtn).addClass("gif-btn btn btn-default");
+		$(newBtn).addClass("gif-btn btn btn-default navbar-btn");
 
 		$(btnDiv).append(newBtn);
 	}
@@ -24,7 +24,7 @@ function requestGifs(search) {
 	var params = {
 		api_key: apiKey,
 		q: search, //search term
-		limit: 9,
+		limit: 10,
 		rating: "g"
 	}
 
@@ -86,4 +86,11 @@ $("#topic-btn").click( function(event) {
 $(document).on("click", ".gif", toggleGifState);
 $(document).on("click", ".gif-btn", function() { 
 	requestGifs($(this).val()) 
+});
+
+$(window).keydown(function(event){
+	if(event.keyCode == 13) {
+		event.preventDefault();
+		return false;
+	}
 });

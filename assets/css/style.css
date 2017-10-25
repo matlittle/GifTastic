@@ -16,7 +16,9 @@
 }
 
 #button-row {
-	margin-top: 20px;
-	margin-bottom: 20px;
 	padding: 10px;
+}
+
+.rating {
+	margin-bottom: 20px;
 }
